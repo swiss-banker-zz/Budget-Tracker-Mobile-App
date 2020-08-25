@@ -6,12 +6,11 @@ import Signup from './src/components/Signup.js';
 import Login from './src/components/Login.js';
 import Dashboard from './src/components/Dashboard.js';
 import BudgetLists from './src/components/BudgetLists.js';
+import Test from './src/components/Test.js';
 
 export default function App() {
   return (
-
     <BudgetLists />
-
   );
 }
 
