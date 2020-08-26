@@ -19,7 +19,7 @@ export default function App() {
 
   return (
     <View style = {styles.container}>
-      <Button>*** PRESS ME ***</Button>
+      <Button onPress = { handelPress }>*** PRESS ME ***</Button>
       <Text style = { styles.text }>{ text }</Text>
     </View>
   );
