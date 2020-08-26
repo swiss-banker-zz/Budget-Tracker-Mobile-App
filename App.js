@@ -1,24 +1,38 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Text, Container } from 'native-base';
-import Signup from './src/components/Signup.js';
-import Login from './src/components/Login.js';
-import Dashboard from './src/components/Dashboard.js';
-import BudgetLists from './src/components/BudgetLists.js';
-import Test from './src/components/Test.js';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import * as Keychain from 'react-native-keychain';
 
 export default function App() {
+
+  const [text, setText] = useState('*** TEXT ***')
+
+  useEffect(() => {
+    setText('Hello World')
+    Keychain.setGenericPassword('text', 'password')
+  }, [])
+
+  async function handlePress() {
+    let password = await Keychain.getGenericPassword().then(credentials => credentials.password)
+    setText(password)
+  }
+
   return (
-    <BudgetLists />
+    <View style = {styles.container}>
+      <Button>*** PRESS ME ***</Button>
+      <Text style = { styles.text }>{ text }</Text>
+    </View>
   );
+
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  container : {
+    flex : 1,
+    justifyContent : 'center'
   },
+  text : {
+    textAlign : 'center',
+    color : 'skyblue'
+  }
 });
