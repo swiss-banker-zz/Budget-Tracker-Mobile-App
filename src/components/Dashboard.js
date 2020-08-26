@@ -17,7 +17,6 @@ export default function Dashboard({total, subscriptions, greatest}) {
     
     <Container>
       <Container>
-        {console.log('DASHBOARD')}
         <Text>Total monthly spending: ${total}</Text>
       </Container>
       <Container>
@@ -30,7 +29,7 @@ export default function Dashboard({total, subscriptions, greatest}) {
         Greatest Category: {category}
         </Text>
       </Container>
-    </Container>
+   </Container>
   );
 }
 
