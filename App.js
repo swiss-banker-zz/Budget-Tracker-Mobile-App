@@ -8,7 +8,20 @@ import BudgetLists from './src/components/BudgetLists.js'
 
 export default function App() {
 
-  const [text, setText] = useState('*** TEXT ***')
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [page, setPage] = useState('signup')
+
+  function pageChange(currentPage) {
+    setPage(currentPage === 'signup' ? 'login' : 'signup');
+  }
+
+  function handleSignUp() {
+    setIsLoggedIn(true);
+  }
+
+  function handleLogIn() {
+    setIsLoggedIn(true);
+  }
 
   // useEffect(() => {
   //   setText('Hello World')
@@ -24,7 +37,15 @@ export default function App() {
     <View style={styles.container}>
       {/* <Button onPress = { handlePress } title = '*** PRESS ME ***' />
       <Text style = { styles.text }>{ text }</Text> */}
-      <BudgetLists />
+      {/* <BudgetLists /> */}
+      {!isLoggedIn && page === 'signup' ?
+        <Signup handleSignUp={handleSignUp} pageChange={pageChange} />
+        :
+        !isLoggedIn && page === 'login' ?
+          <Login handleLogIn={handleLogIn} pageChange={pageChange} />
+          :
+          <BudgetLists />
+      }
     </View>
   );
 

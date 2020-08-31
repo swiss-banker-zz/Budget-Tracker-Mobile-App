@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Content, Header, Container, Title, Form, Input, Item, Label, View } from 'native-base';
 import { StyleSheet, SafeAreaView } from 'react-native';
 
-export default function Signup() {
+export default function Signup({ handleSignUp, pageChange }) {
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -10,6 +10,14 @@ export default function Signup() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [isValidNewUser, setValidNewUser] = useState(false)
+
+  function handleSignUpPress() {
+    handleSignUp()
+  }
+
+  function handlePageChangePress() {
+    pageChange('signup')
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -46,10 +54,15 @@ export default function Signup() {
             <Label>Password</Label>
             <Input secureTextEntry={true} placeholder="Password" style={styles.formInput} />
           </Item>
-          <Button primary style={styles.submitButton} onPress={handleSubmit}>
+          <Button primary style={styles.submitButton} onPress={handleSignUpPress}>
             <Title style={styles.submitText}>Submit</Title>
           </Button>
         </Form>
+
+        <Button block primary style={styles.changePageButton} onPress={handlePageChangePress}>
+          <Title style={styles.submitText}>Already signed up? Login here</Title>
+        </Button>
+
       </Content>
     </View>
 
@@ -63,6 +76,9 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     width: 100,
     justifyContent: 'center',
+    marginTop: '5%'
+  },
+  changePageButton: {
     marginTop: '5%'
   },
   submitText: {
