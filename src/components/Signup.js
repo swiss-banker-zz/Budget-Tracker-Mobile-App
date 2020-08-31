@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Button, Content, Header, Container, Title, Form, Input, Item, Label } from 'native-base';
+import { Button, Content, Header, Container, Title, Form, Input, Item, Label, View } from 'native-base';
 import { StyleSheet, SafeAreaView } from 'react-native';
 
 export default function Signup() {
-  
+
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -21,64 +21,64 @@ export default function Signup() {
   }
 
   return (
-    <View style = {styles.container}>
-      <SafeAreaView style = {{backgroundColor : '#F8F8F8'}}></SafeAreaView>
+    <View style={styles.container}>
+      <SafeAreaView style={{ backgroundColor: '#F8F8F8' }}></SafeAreaView>
       <Content>
-        <Form style = {styles.form}>
-        <Header style={styles.title}><Title>Sign up to use Budget Tracker for free</Title></Header>
-            <Item floatingLabel>
-              <Label>First Name</Label>
-              <Input style = {styles.formInput}/>
-            </Item>
-            <Item floatingLabel>
-              <Label>Last Name</Label>
-              <Input style = {styles.formInput} />
-            </Item>
-            <Item floatingLabel>
-              <Label>Username</Label>
-              <Input style = {styles.formInput} />
-            </Item>
-            <Item floatingLabel>
-              <Label>Email</Label>
-              <Input style = {styles.formInput} />
-            </Item>
-            <Item floatingLabel>
-              <Label>Password</Label>
-              <Input secureTextEntry={true} placeholder="Password" style = {styles.formInput} />
-            </Item>
+        <Form style={styles.form}>
+          <Header style={styles.title}><Title>Sign up to use Budget Tracker for free</Title></Header>
+          <Item floatingLabel>
+            <Label>First Name</Label>
+            <Input style={styles.formInput} />
+          </Item>
+          <Item floatingLabel>
+            <Label>Last Name</Label>
+            <Input style={styles.formInput} />
+          </Item>
+          <Item floatingLabel>
+            <Label>Username</Label>
+            <Input style={styles.formInput} />
+          </Item>
+          <Item floatingLabel>
+            <Label>Email</Label>
+            <Input style={styles.formInput} />
+          </Item>
+          <Item floatingLabel>
+            <Label>Password</Label>
+            <Input secureTextEntry={true} placeholder="Password" style={styles.formInput} />
+          </Item>
           <Button primary style={styles.submitButton} onPress={handleSubmit}>
-            <Title style = {styles.submitText}>Submit</Title>
+            <Title style={styles.submitText}>Submit</Title>
           </Button>
         </Form>
-        </Content>
-        </View>
-       
-    
+      </Content>
+    </View>
+
+
   );
 }
 
 const styles = StyleSheet.create({
-  submitButton : {
+  submitButton: {
     marginLeft: 'auto',
     marginRight: 'auto',
     width: 100,
     justifyContent: 'center',
     marginTop: '5%'
   },
-  submitText : {
+  submitText: {
     color: 'white'
   },
-  formInput : {
+  formInput: {
     marginBottom: 0
   },
-  title : {
-    marginTop : '5%',
+  title: {
+    marginTop: '5%',
     backgroundColor: '#F8F8F8'
   },
-  form : {
-    justifyContent : 'center'
+  form: {
+    justifyContent: 'center'
   },
-  container : {
+  container: {
     flex: 1,
     justifyContent: 'center'
   }

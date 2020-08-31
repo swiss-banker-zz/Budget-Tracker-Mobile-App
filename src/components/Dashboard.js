@@ -1,8 +1,8 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text, Container } from 'native-base';
+import { View, StyleSheet, Text } from 'react-native';
+import { Container, ListItem, Icon, Left, Body, Right } from 'native-base';
 
-export default function Dashboard({total, subscriptions, greatest}) {
+export default function Dashboard({ total, subscriptions, greatest }) {
   let categoriesMap = new Map()
   categoriesMap.set('subscriptions', 'Subscriptions and Recurring Expenses')
   categoriesMap.set('food', 'Food and Dining')
@@ -14,22 +14,56 @@ export default function Dashboard({total, subscriptions, greatest}) {
   let category = categoriesMap.get(greatest)
 
   return (
-    
-    <Container>
-      <Container>
-        <Text>Total monthly spending: ${total}</Text>
-      </Container>
-      <Container>
-        <Text>
-        Subscriptions monthly total: ${subscriptions}
-        </Text>
-      </Container>
-      <Container>
-        <Text>
-        Greatest Category: {category}
-        </Text>
-      </Container>
-   </Container>
+
+
+    <View style={styles.dashboard}>
+      <ListItem icon>
+        <Left>
+          <Icon type="Foundation" name="dollar-bill" />
+        </Left>
+        <Body>
+          <Text>Total Monthly Spending</Text>
+        </Body>
+        <Right>
+          <Text>${total}</Text>
+        </Right>
+      </ListItem>
+      <ListItem icon>
+        <Left>
+          <Icon type="Fontisto" name="calculator" />
+        </Left>
+        <Body>
+          <Text>Subscriptions Monthly Total</Text>
+        </Body>
+        <Right>
+          <Text>${subscriptions}</Text>
+        </Right>
+      </ListItem>
+      <ListItem icon>
+        <Left>
+          <Icon type="Foundation" name="graph-bar" />
+        </Left>
+        <Body>
+          <Text>Greatest Category</Text>
+        </Body>
+        <Body>
+          <Text>Subscriptions and recurring expenses</Text>
+        </Body>
+      </ListItem>
+    </View>
+
+
   );
 }
+
+const styles = StyleSheet.create({
+  dashboard: {
+    marginTop: '15%',
+    marginBottom: '15%',
+
+  }
+
+
+
+})
 

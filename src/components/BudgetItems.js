@@ -1,22 +1,28 @@
 import React from 'react';
-import { Text, Container, Left, Right, List, ListItem, Icon } from 'native-base';
+import { Text, Container, Body, Left, Right, List, ListItem, Icon, Button } from 'native-base';
 
 export default function BudgetItems({ items, deleteItem, subscriptions, food, housing, entertainment, medical, other }) {
 
-  function deleteEntry(key, category, cost) {
-    deleteItem(key, category, cost)
+  function deleteEntry(key) {
+
+    deleteItem(key);
+
   }
 
 
   function createTasks(item) {
     return (
-      <ListItem id={Date.now()}>
+      <ListItem key={Date.now()}>
         <Left>
-    <Text>{item.name}</Text>
+          <Text>{item.name}</Text>
         </Left>
+        <Body>
+          <Text>${item.cost}</Text>
+        </Body>
         <Right>
-    <Text>${item.cost}</Text>
-          <Icon name='logo-apple' onClick={() => deleteEntry(item.key, item.category, item.cost)}/>
+          <Button onPress={() => deleteEntry(item.key, item.category, item.cost)}>
+            <Icon name='logo-apple' />
+          </Button>
         </Right>
       </ListItem>
     )
@@ -54,47 +60,43 @@ export default function BudgetItems({ items, deleteItem, subscriptions, food, ho
   let otherItems = otherBoxes.map(createTasks)
 
   return (
-    
-    
-    
-      <Container>
-          {console.log(items)}
-        <List>
-          <ListItem itemDivider>
-  <Text>Subscriptions and Recurring Expenses: ${subscriptions}</Text>
-          </ListItem>
-          {subItems}
-
-          <ListItem itemDivider>
-  <Text>Food and Dining: ${food}</Text>
-          </ListItem>
-          {foodItems}
-
-          <ListItem itemDivider>
-  <Text>Housing and Utilities: ${housing}</Text>
-          </ListItem>
-          {housingItems}
-
-          <ListItem itemDivider>
-  <Text>Entertainment and Recreation: ${entertainment}</Text>
-          </ListItem>
-          {entertainmentItems}
-
-          <ListItem itemDivider>
-  <Text>Medical and Healthcare: ${medical}</Text>
-          </ListItem>
-          {medicalItems}
-
-          <ListItem itemDivider>
-  <Text>Other: ${other}</Text>
-          </ListItem>
-          {otherItems}
 
 
 
-        </List>
-      </Container>
-  
+
+    <List>
+      <ListItem itemDivider>
+        <Text>Subscriptions and Recurring Expenses: ${subscriptions}</Text>
+      </ListItem>
+      {subItems}
+
+      <ListItem itemDivider>
+        <Text>Food and Dining: ${food}</Text>
+      </ListItem>
+      {foodItems}
+
+      <ListItem itemDivider>
+        <Text>Housing and Utilities: ${housing}</Text>
+      </ListItem>
+      {housingItems}
+
+      <ListItem itemDivider>
+        <Text>Entertainment and Recreation: ${entertainment}</Text>
+      </ListItem>
+      {entertainmentItems}
+
+      <ListItem itemDivider>
+        <Text>Medical and Healthcare: ${medical}</Text>
+      </ListItem>
+      {medicalItems}
+
+      <ListItem itemDivider>
+        <Text>Other: ${other}</Text>
+      </ListItem>
+      {otherItems}
+    </List>
+
+
   );
 }
 

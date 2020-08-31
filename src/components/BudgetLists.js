@@ -39,7 +39,7 @@ export default function BudgetLists() {
   //     credentials: 'include'
   //   })
 
-    
+
 
   //   let data = await response.json()
   //   setItems(data.budget_items)
@@ -57,15 +57,15 @@ export default function BudgetLists() {
 
   function addItem(e) {
     e.preventDefault()
-    console.log('asdfjkl;')
-    console.log(item)
-    console.log(cost)
-    console.log(inputCategory)
-    console.log(date)
-    let itemArray = items;
+    // console.log('asdfjkl;')
+    // console.log(item)
+    // console.log(cost)
+    // console.log(inputCategory)
+    // console.log(date)
+    let itemArray = [...items];
     const key = Date.now();
     if (item !== "" && cost !== "" && cost > 0.00 && inputCategory !== "" && date !== "") {
-    console.log("creapt nateve")
+      console.log("creapt nateve")
       itemArray.unshift({
         name: item,
         cost: cost,
@@ -183,10 +183,11 @@ export default function BudgetLists() {
     setGreatest(maxCategory);
   }
 
-  function deleteItem(key, category, cost) {
-    let filteredItems = items.filter(function (item) {
-      return (item.key !== key);
-    });
+  function deleteItem(key) {
+    let filteredItems = [...items];
+
+    filteredItems = items.filter(item => key !== item.key
+    );
     setItems(filteredItems)
     setCosts(filteredItems);
 
@@ -216,89 +217,96 @@ export default function BudgetLists() {
   }
 
   return (
-    <Content style = {styles.container}>
-    <SafeAreaView style = {{backgroundColor : '#F8F8F8'}}></SafeAreaView>
-   
-    <Content>
-    <Form>
-          {/* <Item floatingLabel> */}
-            <Label>Item</Label>
-            <TextInput style = {styles.formInput} onChangeText={item => {console.log(item); setItem(item)}}/>
-          {/* </Item> */}
-          {/* <Item floatingLabel> */}
-            <Label>Cost</Label>
-            <TextInput style = {styles.formInput} value={cost} onChangeText={cost => setCost(cost)} />
-          {/* </Item> */}
-        
-          <DatePicker
-            defaultDate={new Date(2018, 4, 4)}
-            minimumDate={new Date(2018, 1, 1)}
-            maximumDate={new Date(2018, 12, 31)}
-            locale={"en"}
-            timeZoneOffsetInMinutes={undefined}
-            modalTransparent={false}
-            value={date}
-            animationType={"fade"}
-            androidMode={"default"}
-            placeHolderText="Select date"
-            textStyle={{ color: "black" }}
-            placeHolderTextStyle={{ color: "#d3d3d3" }}
-            onDateChange={(value, index) => setDate(value)}
-            disabled={false}
-            />
- 
-<Picker
-    renderHeader={backAction =>
-      <Header style={{ backgroundColor: "skyblue" }}>
-        <Left>
-          <Button transparent onPress={backAction}>
-            <Icon name="arrow-back" style={{ color: "#fff" }} />
-          </Button>
-        </Left>
-        <Body style={{ flex: 3 }}>
-          <Title style={{ color: "#fff" }}>Categories</Title>
-        </Body>
-        <Right />
-      </Header>}
-    mode="dropdown"
-    value={inputCategory}
-    placeholder="Select a category"
-    placeholderStyle={{color: "#bfc6ea"}}
-    placeholderIconColor="#007aff"
-    iosIcon={<Icon name="arrow-down" />}
-    selectedValue={inputCategory}
-    onValueChange={(value, index) => setInputCategory(value) }
-  >
-    <Picker.Item label="Subscriptions and Recurring Expenses" value="subscriptions"></Picker.Item>
-    <Picker.Item label="Food and Dining" value="food"></Picker.Item>
-    <Picker.Item label="Housing and Utilities" value="housing"></Picker.Item>
-    <Picker.Item label="Entertainment and Recreation" value="recreation"></Picker.Item>
-    <Picker.Item label="Medical and Healthcare" value="medical"></Picker.Item>
-    <Picker.Item label="Other" value="other"></Picker.Item>
+    <Content style={styles.container}>
+      <SafeAreaView style={{ backgroundColor: '#F8F8F8' }}></SafeAreaView>
 
-    </Picker>
 
-    <Button primary style={styles.submitButton} onPress={addItem}>
-          <Title style = {styles.submitText}>Submit</Title>
+      <Form style={styles.form}>
+
+
+        <Header style={styles.title}><Title>Start by adding items below</Title></Header>
+
+        <Label style={styles.formLabel}>Item</Label>
+        <TextInput style={styles.formInput} onChangeText={item => { console.log(item); setItem(item) }} />
+
+
+        <Label style={styles.formLabel}>Cost</Label>
+        <TextInput style={styles.formInput} value={cost} onChangeText={cost => setCost(cost)} />
+
+
+
+
+
+
+        <DatePicker
+          defaultDate={new Date(2018, 4, 4)}
+          minimumDate={new Date(2018, 1, 1)}
+          maximumDate={new Date(2018, 12, 31)}
+          locale={"en"}
+          timeZoneOffsetInMinutes={undefined}
+          modalTransparent={false}
+          value={date}
+          animationType={"fade"}
+          androidMode={"default"}
+          placeHolderText="Select date"
+          textStyle={{ color: "black" }}
+          placeHolderTextStyle={{ color: "#d3d3d3" }}
+          onDateChange={(value, index) => setDate(value)}
+          disabled={false}
+
+        />
+
+        <Picker
+          renderHeader={backAction =>
+            <Header style={{ backgroundColor: "skyblue" }}>
+              <Left>
+                <Button transparent onPress={backAction}>
+                  <Icon name="arrow-back" style={{ color: "#fff" }} />
+                </Button>
+              </Left>
+              <Body style={{ flex: 3 }}>
+                <Title style={{ color: "#fff" }}>Categories</Title>
+              </Body>
+              <Right />
+            </Header>}
+          mode="dropdown"
+          value={inputCategory}
+          placeholder="Select a category"
+          placeholderStyle={{ color: "#bfc6ea" }}
+          placeholderIconColor="#007aff"
+          iosIcon={<Icon name="arrow-down" />}
+          selectedValue={inputCategory}
+          onValueChange={(value, index) => setInputCategory(value)}
+        >
+          <Picker.Item label="Subscriptions and Recurring Expenses" value="subscriptions"></Picker.Item>
+          <Picker.Item label="Food and Dining" value="food"></Picker.Item>
+          <Picker.Item label="Housing and Utilities" value="housing"></Picker.Item>
+          <Picker.Item label="Entertainment and Recreation" value="recreation"></Picker.Item>
+          <Picker.Item label="Medical and Healthcare" value="medical"></Picker.Item>
+          <Picker.Item label="Other" value="other"></Picker.Item>
+        </Picker>
+
+        <Button primary style={styles.submitButton} onPress={addItem}>
+          <Title style={styles.submitText}>Submit</Title>
         </Button>
-</Form>
-      </Content>
+      </Form>
+
 
       <Dashboard
-          total={total}
-          subscriptions={subscriptions}
-          greatest={greatest} />
+        total={total}
+        subscriptions={subscriptions}
+        greatest={greatest} />
 
-<BudgetItems
-            items={items}
-            deleteItem={deleteItem}
-            subscriptions={subscriptions}
-            food={food}
-            housing={housing}
-            entertainment={entertainment}
-            medical={medical}
-            other={other}
-          />
+      <BudgetItems
+        items={items}
+        deleteItem={deleteItem}
+        subscriptions={subscriptions}
+        food={food}
+        housing={housing}
+        entertainment={entertainment}
+        medical={medical}
+        other={other}
+      />
 
     </Content>
   );
@@ -306,7 +314,32 @@ export default function BudgetLists() {
 
 
 const styles = StyleSheet.create({
-  container : {
+  title: {
+    marginTop: '5%'
+  },
+  container: {
     flex: 1
+  },
+  formLabel: {
+    marginTop: '2%',
+    marginLeft: '5%'
+  },
+  formInput: {
+    paddingTop: '2%',
+    paddingBottom: '2%',
+    marginTop: '2%',
+    marginBottom: '2%',
+    backgroundColor: 'lightgrey'
+  },
+  form: {
+    justifyContent: 'center',
+  },
+  submitButton: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: 100,
+    justifyContent: 'center',
+    marginTop: '5%'
   }
+
 });
