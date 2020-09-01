@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Content, Header, Container, Title, Form, Input, Item, Label } from 'native-base';
 import { StyleSheet, SafeAreaView, View } from 'react-native';
+import { encode as btoa } from 'base-64';
+import * as SecureStore from 'expo-secure-store';
 
 export default function Login({ handleLogIn, pageChange }) {
 
@@ -10,6 +12,22 @@ export default function Login({ handleLogIn, pageChange }) {
 
 
   function handleLogInPress() {
+    login()
+    // handleLogIn()
+  }
+
+  async function login() {
+    let response = await fetch('http://localhost:5000/user/login', {
+      method: 'POST',
+      headers: {
+        Authorization: 'Basic ' + btoa(username + ':' + username)
+      }
+    })
+    if (response.status !== 200) {
+      return;
+    }
+    let data = await response.json()
+    SecureStore.setItemAsync('token', data.token)
     handleLogIn()
   }
 
@@ -17,14 +35,7 @@ export default function Login({ handleLogIn, pageChange }) {
     pageChange('login')
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    // TODO
-  }
 
-  function handleChange() {
-    // TODO
-  }
 
   return (
     <View style={styles.container}>
@@ -34,11 +45,11 @@ export default function Login({ handleLogIn, pageChange }) {
           <Header style={styles.title}><Title>Sign in to your account</Title></Header>
           <Item floatingLabel>
             <Label>Username</Label>
-            <Input style={styles.formInput} />
+            <Input style={styles.formInput} onChangeText={username => setUsername(username)} />
           </Item>
           <Item floatingLabel>
             <Label>Password</Label>
-            <Input secureTextEntry={true} style={styles.formInput} />
+            <Input secureTextEntry={true} style={styles.formInput} onChangeText={password => setPassword(password)} />
           </Item>
           <Button primary style={styles.submitButton} onPress={handleLogInPress}>
             <Title style={styles.submitText}>Submit</Title>

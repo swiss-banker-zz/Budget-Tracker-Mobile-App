@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Content, Header, Container, Title, Form, Input, Item, Label, View } from 'native-base';
 import { StyleSheet, SafeAreaView } from 'react-native';
 
-export default function Signup({ handleSignUp, pageChange }) {
+export default function Signup({ handleLogIn, pageChange }) {
 
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -11,21 +11,34 @@ export default function Signup({ handleSignUp, pageChange }) {
   const [password, setPassword] = useState('')
   const [isValidNewUser, setValidNewUser] = useState(false)
 
+
   function handleSignUpPress() {
-    handleSignUp()
+    signin()
+  }
+
+  async function signin() {
+    let body = {
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      username: username,
+      password: password
+    }
+
+    let response = await fetch('https://localhost:5000/user/signup', {
+      method: 'POST',
+      body: JSON.stringify(body)
+    })
+
+    if (response.status !== 201) return;
+    let data = await response.json()
+
+    SecureStore.setItemAsync('token', data.token)
+    handleLogIn()
   }
 
   function handlePageChangePress() {
     pageChange('signup')
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    // TODO
-  }
-
-  function handleChange() {
-    // TODO
   }
 
   return (
@@ -36,23 +49,23 @@ export default function Signup({ handleSignUp, pageChange }) {
           <Header style={styles.title}><Title>Sign up to use Budget Tracker for free</Title></Header>
           <Item floatingLabel>
             <Label>First Name</Label>
-            <Input style={styles.formInput} />
+            <Input style={styles.formInput} onChangeText={firstName => setFirstName(firstName)} />
           </Item>
           <Item floatingLabel>
             <Label>Last Name</Label>
-            <Input style={styles.formInput} />
+            <Input style={styles.formInput} onChangeText={lastName => setLastName(lastName)} />
           </Item>
           <Item floatingLabel>
             <Label>Username</Label>
-            <Input style={styles.formInput} />
+            <Input style={styles.formInput} onChangeText={username => setUsername(username)} />
           </Item>
           <Item floatingLabel>
             <Label>Email</Label>
-            <Input style={styles.formInput} />
+            <Input style={styles.formInput} onChangeText={email => setEmail(email)} />
           </Item>
           <Item floatingLabel>
             <Label>Password</Label>
-            <Input secureTextEntry={true} placeholder="Password" style={styles.formInput} />
+            <Input secureTextEntry={true} style={styles.formInput} onChangeText={password => setPassword(password)} />
           </Item>
           <Button primary style={styles.submitButton} onPress={handleSignUpPress}>
             <Title style={styles.submitText}>Submit</Title>

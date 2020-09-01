@@ -15,9 +15,6 @@ export default function App() {
     setPage(currentPage === 'signup' ? 'login' : 'signup');
   }
 
-  function handleSignUp() {
-    setIsLoggedIn(true);
-  }
 
   function handleLogIn() {
     setIsLoggedIn(true);
@@ -39,7 +36,7 @@ export default function App() {
       <Text style = { styles.text }>{ text }</Text> */}
       {/* <BudgetLists /> */}
       {!isLoggedIn && page === 'signup' ?
-        <Signup handleSignUp={handleSignUp} pageChange={pageChange} />
+        <Signup handleLogIn={handleLogIn} pageChange={pageChange} />
         :
         !isLoggedIn && page === 'login' ?
           <Login handleLogIn={handleLogIn} pageChange={pageChange} />

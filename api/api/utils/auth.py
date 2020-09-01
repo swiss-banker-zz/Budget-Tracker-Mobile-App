@@ -9,9 +9,10 @@ from flask import request
 def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        access_token = request.headers.get('Authorization')
-        if(access_token):
-            user_public_id = verify_access_token(access_token)
+        auth_header = request.headers.get('Authorization')
+        if(auth_header):
+            token = auth_header.split(' ')[1]
+            user_public_id = verify_access_token(token)
             if(user_public_id):
                 current_user = User.query.filter_by(public_id = user_public_id).first()
                 return f(current_user, *args, **kwargs)
