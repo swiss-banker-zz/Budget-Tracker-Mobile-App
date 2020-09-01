@@ -10,6 +10,10 @@ from datetime import datetime, timedelta
 
 # *** ENDPOINTS ***
 
+@app.route('/')
+def test():
+    return { 'message' : 'Hello World' }
+
 @app.route('/user/new', methods = ['POST'])
 @validate_new_user
 def new_user(data):

@@ -2,7 +2,7 @@ import jwt
 from datetime import datetime, timedelta
 from functools import wraps
 from api import app, db
-from api.models import RefreshToken, User
+from api.models import User
 from flask import request
 
 
